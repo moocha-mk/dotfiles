@@ -1,0 +1,6 @@
+{
+  "Lua.diagnostics.globals": ["vim"],
+  "Lua.workspace.library": ["$VIMRUNTIME"],
+  "Lua.workspace.checkThirdParty": false
+}
+

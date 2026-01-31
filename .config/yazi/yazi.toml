@@ -1,0 +1,34 @@
+# yazi.toml
+[mgr]
+show_hidden = true
+linemode = "size_and_mtime"
+
+[preview]
+max_width       = 1000
+max_height      = 1600
+image_quality   = 75
+ueberzug_scale  = 1
+ueberzug_offset = [ 0, 1, 0, 0 ]
+
+[plugin]
+prepend_previewers = [
+	# Archive previewer
+	{ mime = "application/*zip",            run = "ouch" },
+	{ mime = "application/x-tar",           run = "ouch" },
+	{ mime = "application/x-bzip2",         run = "ouch" },
+	{ mime = "application/x-7z-compressed", run = "ouch" },
+	{ mime = "application/x-rar",           run = "ouch" },
+	{ mime = "application/vnd.rar",         run = "ouch" },
+	{ mime = "application/x-xz",            run = "ouch" },
+	{ mime = "application/xz",              run = "ouch" },
+	{ mime = "application/x-zstd",          run = "ouch" },
+	{ mime = "application/zstd",            run = "ouch" },
+	{ mime = "application/java-archive",    run = "ouch" },
+]
+
+[opener]
+edit = [
+	{ run = 'nvim "$@"', block = true, desc = "nvim", for = "unix" },
+	{ run = "%EDITOR% %*",  block = true, for = "windows" },
+]
+

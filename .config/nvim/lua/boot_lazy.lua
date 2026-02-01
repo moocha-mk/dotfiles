@@ -24,6 +24,7 @@ require('lazy').setup {
     { import = 'plugins.oil' },
     { import = 'plugins.mini' },
     { import = 'plugins.lsp' },
+    { import = 'plugins.git' },
     { import = 'plugins.fzflua' },
     { import = 'plugins.treesitter' },
     { import = 'plugins.conform' },

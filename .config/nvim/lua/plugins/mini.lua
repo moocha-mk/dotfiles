@@ -40,11 +40,20 @@ return {
 
       require('mini.visits').setup()
 
+      require('mini.diff').setup()
+
+      -- require('mini.git').setup()
+
       -- ╭─────────────────────────────────────────────────────────╮
       -- │                     mini.completion                     │
       -- ╰─────────────────────────────────────────────────────────╯
       require('mini.fuzzy').setup()
       require('mini.completion').setup {
+        window = {
+          completion = { border = single },
+          info = { border = single },
+          signature = { border = single },
+        },
         lsp_completion = {
           process_items = MiniFuzzy.process_lsp_items,
         },
@@ -94,10 +103,10 @@ return {
 
       -- ================================================== [ pick ] ==========
 
-      require('mini.pick').setup {}
-      vim.ui.select = MiniPick.ui_select
-
       local pick = require 'mini.pick'
+
+      require('mini.pick').setup {}
+      vim.ui.select = pick.ui_select
 
       -- -- git files
       -- vim.keymap.set('n', '<space>sg', function()
@@ -117,11 +126,26 @@ return {
       -- buffer
       vim.keymap.set('n', '<leader><leader>', function()
         local wipeout_cur = function()
-          vim.api.nvim_buf_delete(MiniPick.get_picker_matches().current.bufnr, {})
+          local cur = pick.get_picker_matches().current
+          if cur and cur.bufnr then
+            vim.api.nvim_buf_delete(cur.bufnr, {})
+          end
         end
-        local buffer_mappings = { wipeout = { char = '<c-d>', func = wipeout_cur } }
+
+        local buffer_mappings = {
+          wipeout = { char = '<c-d>', func = wipeout_cur },
+        }
+
         pick.builtin.buffers({ include_current = false }, { mappings = buffer_mappings })
       end, { desc = 'Pick [Buffers <C-d>:delete]' })
+
+      -- vim.keymap.set('n', '<leader><leader>', function()
+      --   local wipeout_cur = function()
+      --     vim.api.nvim_buf_delete(MiniPick.get_picker_matches().current.bufnr, {})
+      --   end
+      --   local buffer_mappings = { wipeout = { char = '<c-d>', func = wipeout_cur } }
+      --   pick.builtin.buffers({ include_current = false }, { mappings = buffer_mappings })
+      -- end, { desc = 'Pick [Buffers <C-d>:delete]' })
 
       -- help :hhでヘルプをFuzzy Find
       vim.keymap.set('c', 'h', function()

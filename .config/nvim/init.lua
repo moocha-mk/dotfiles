@@ -12,4 +12,4 @@ require 'util.Note_scratch'
 -- require 'util.colorscheme_manager'
 
 -- カラースキーム -----
--- vim.cmd.colorscheme 'miniwinter'
+-- vim.cmd.colorscheme 'minischeme'

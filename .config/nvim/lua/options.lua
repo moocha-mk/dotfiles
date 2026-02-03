@@ -7,7 +7,7 @@ vim.opt.cursorline = true
 -- 行番号の標示
 vim.opt.number = true
 -- 行番号をカーソル位置を起点にする
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 
 -- スクロール時の画面上下端でのカーソル位置
 vim.opt.scrolloff = 5

@@ -28,9 +28,13 @@ return {
         },
       }
 
-      require('mini.pairs').setup()
-
+      -- move M-hjkl
       require('mini.move').setup()
+
+      -- splitjoin gS
+      require('mini.splitjoin').setup()
+
+      require('mini.pairs').setup()
 
       require('mini.statusline').setup()
 

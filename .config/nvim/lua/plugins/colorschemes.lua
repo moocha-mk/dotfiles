@@ -24,15 +24,18 @@ return {
         color_overrides = {
           mocha = {
             green = '#a6e3a1',
-            base = '#282828', -- Mochaの背景色
+            base = '#1e1432', -- Mochaの背景色
             mantle = '#010101',
             crust = '#020202',
+          },
+          latte = {
+            base = '#f5ebcd',
           },
         },
         dim_inactive = {
           enabled = true, -- dims the background color of inactive window
-          shade = 'dark',
-          percentage = 0.1, -- percentage of the shade to apply to the inactive window
+          shade = 'light',
+          percentage = 0.25, -- percentage of the shade to apply to the inactive window
         },
         no_italic = true,
 

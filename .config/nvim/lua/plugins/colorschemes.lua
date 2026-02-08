@@ -63,35 +63,30 @@ return {
       },
     },
     { 'rebelot/kanagawa.nvim' },
+    { 'marko-cerovac/material.nvim' },
     { 'ellisonleao/gruvbox.nvim', priority = 1000, config = true },
     {
-      'folke/tokyonight.nvim',
-      -- lazy = false,
-      priority = 1000,
-      opts = {},
+      'zaldih/themery.nvim',
+      lazy = false,
+      keys = {
+        { '<leader>cc', ':Themery<CR>', noremap = true, silent = true, desc = 'Change Colorscheme ' },
+      },
+      config = function()
+        require('themery').setup {
+          themes = {
+            {
+              name = 'Day',
+              colorscheme = 'kanagawa-lotus',
+            },
+            'ayu-mirage',
+            'material',
+            'catppuccin',
+            'gruvbox',
+            'miniwinter',
+          },
+        }
+      end,
     },
-    { 'rmehri01/onenord.nvim' },
-    -- {
-    --   'zaldih/themery.nvim',
-    --   lazy = false,
-    --   keys = {
-    --     { '<leader>cc', ':Themery<CR>', noremap = true, silent = true, desc = 'Change Colorscheme ' },
-    --   },
-    --   config = function()
-    --     require('themery').setup {
-    --       themes = {
-    --         {
-    --           name = 'Day',
-    --           colorscheme = 'kanagawa-lotus',
-    --         },
-    --         'catppuccin',
-    --         'gruvbox',
-    --         'tokyonight',
-    --         'miniwinter',
-    --       },
-    --     }
-    --   end,
-    -- },
     {
       'uga-rosa/ccc.nvim',
       cond = not vim.g.vscode,

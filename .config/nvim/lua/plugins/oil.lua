@@ -11,7 +11,7 @@ return {
     { '<leader>e', ':Oil<CR>', silent = true, desc = '󰏇 ...oiL' },
     { '\\', ':Oil --float<CR>', noremap = true, silent = true, desc = 'Oil float' },
     {
-      '<C-n>', -- パスに注意!!
+      '<leader>E', -- パスに注意!!
       ':Oil ~/.config/nvim --float<CR>',
       noremap = true,
       silent = true,

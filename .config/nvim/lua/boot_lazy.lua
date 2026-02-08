@@ -26,6 +26,7 @@ require('lazy').setup {
     { import = 'plugins.lsp' },
     { import = 'plugins.git' },
     { import = 'plugins.fzflua' },
+    { import = 'plugins.nvimtree' },
     { import = 'plugins.treesitter' },
     { import = 'plugins.conform' },
     { import = 'plugins.colorschemes' },

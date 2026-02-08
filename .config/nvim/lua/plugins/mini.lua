@@ -8,19 +8,6 @@ return {
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
 
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      require('mini.surround').setup {
-        mappings = {
-          add = 'sa', --  saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-          delete = 'sd', -- sd' - [S]urround [D]elete [']quotes
-          find = '',
-          find_left = '',
-          highlight = '',
-          replace = 'sc', -- sr)'  - [S]urround [R]eplace [)] [']
-          update_n_lines = '',
-        },
-      }
-
       require('mini.align').setup {
         mappings = {
           start = '',
@@ -36,18 +23,65 @@ return {
 
       require('mini.pairs').setup()
 
-      require('mini.statusline').setup()
-
       require('mini.tabline').setup()
 
       require('mini.extra').setup()
+
+      require('mini.cursorword').setup()
 
       require('mini.visits').setup()
 
       require('mini.diff').setup()
 
-      -- require('mini.git').setup()
+      require('mini.git').setup()
 
+      require('mini.cmdline').setup {
+        -- fuzzy候補を表示しない
+        vim.opt.wildoptions:remove 'fuzzy',
+      }
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                     mini.statusline                     │
+      -- ╰─────────────────────────────────────────────────────────╯
+      require('mini.statusline').setup()
+      local set_hl = vim.api.nvim_set_hl
+
+      local function statusline_colors()
+        -- ===== Mode colors =====
+        set_hl(0, 'MiniStatuslineModeNormal', { fg = '#95df64', bg = '#283234', bold = true })
+        set_hl(0, 'MiniStatuslineModeInsert', { fg = '#1e1e2e', bg = '#55868e', bold = true })
+        set_hl(0, 'MiniStatuslineModeVisual', { fg = '#1e1e2e', bg = '#f9e2af', bold = true })
+        set_hl(0, 'MiniStatuslineModeReplace', { fg = '#1e1e2e', bg = '#f38ba8', bold = true })
+        set_hl(0, 'MiniStatuslineModeCommand', { fg = '#1e1e2e', bg = '#cba6f7', bold = true })
+        set_hl(0, 'MiniStatuslineModeOther', { fg = '#29332c', bg = '#94e2d5', bold = true })
+
+        -- ===== Common sections =====
+        set_hl(0, 'MiniStatuslineFilename', { fg = '#cdd6f4', bg = '#313244' })
+        set_hl(0, 'MiniStatuslineFileinfo', { fg = '#bac2de', bg = '#313244' })
+        set_hl(0, 'MiniStatuslineDevinfo', { fg = '#94e2d5', bg = '#3c3c3c' })
+
+        -- ===== Inactive =====
+        set_hl(0, 'MiniStatuslineInactive', { fg = '#6c7086', bg = '#181825' })
+      end
+
+      statusline_colors()
+      -- colorscheme変更対策
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        callback = statusline_colors,
+      })
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                      mini.surround                      │
+      -- ╰─────────────────────────────────────────────────────────╯
+      require('mini.surround').setup {
+        mappings = {
+          add = 'sa', --  saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+          delete = 'sd', -- sd' - [S]urround [D]elete [']quotes
+          find = '',
+          find_left = '',
+          highlight = '',
+          replace = 'sc', -- sr)'  - [S]urround [R]eplace [)] [']
+          update_n_lines = '',
+        },
+      }
       -- ╭─────────────────────────────────────────────────────────╮
       -- │                     mini.completion                     │
       -- ╰─────────────────────────────────────────────────────────╯
@@ -105,7 +139,9 @@ return {
         return keys.cy .. keys.cr
       end, { expr = true, desc = 'Complete current item if item is selected' })
 
-      -- ================================================== [ pick ] ==========
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                        mini.pick                        │
+      -- ╰─────────────────────────────────────────────────────────╯
 
       local pick = require 'mini.pick'
 
@@ -159,7 +195,9 @@ return {
         return 'h'
       end, { expr = true, desc = 'mini.pick.help' })
 
-      -- ============================================= [ animate ] ============
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                      mini.animate                       │
+      -- ╰─────────────────────────────────────────────────────────╯
       local animate = require 'mini.animate'
 
       require('mini.animate').setup {
@@ -173,7 +211,9 @@ return {
         },
       }
 
-      -- =============================================== [ misc ] =============
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                        mini.misc                        │
+      -- ╰─────────────────────────────────────────────────────────╯
       require('mini.misc').setup()
       -- 終了時のカーソル位置を記憶する
       MiniMisc.setup_restore_cursor()
@@ -183,7 +223,9 @@ return {
       end, { desc = 'Zoom current buffer' })
       vim.keymap.set('n', '<leader>tz', '<cmd>Zoom<cr>', { desc = 'Zoom Toggle' })
 
-      -- ============================================== [ indentscope ] =======
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                    mini.indentscope                     │
+      -- ╰─────────────────────────────────────────────────────────╯
       require('mini.indentscope').setup {
         event = 'BufRead',
         draw = {
@@ -197,7 +239,9 @@ return {
         symbol = '│',
       }
 
-      -- =============================================== [ starter ] ==========
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                      mini.starter                       │
+      -- ╰─────────────────────────────────────────────────────────╯
 
       local fzf = require 'fzf-lua'
 
@@ -266,7 +310,9 @@ return {
         require('mini.starter').open()
       end, { desc = 'Starter [Open]' })
 
-      -- ================================================ [ hipatterns ] ======
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                     mini.hipatterns                     │
+      -- ╰─────────────────────────────────────────────────────────╯
       -- FIXME修正が必要 HACK解決策の検討 TODOあとで追加、修正 NOTE経緯、意図 -
       require('mini.hipatterns').setup {
         highlighters = {
@@ -277,7 +323,9 @@ return {
         },
       }
 
-      -- ================================================== [ clue ] ==========
+      -- ╭─────────────────────────────────────────────────────────╮
+      -- │                        mini.clue                        │
+      -- ╰─────────────────────────────────────────────────────────╯
       local miniclue = require 'mini.clue'
       miniclue.setup {
         triggers = {
@@ -323,7 +371,7 @@ return {
           miniclue.gen_clues.z(),
           { mode = 'n', keys = '<leader>b', desc = '+CommentBox' },
           { mode = 'n', keys = '<leader>c', desc = '+Colors' },
-          { mode = 'n', keys = '<leader>f', desc = '+Fzflua' },
+          { mode = 'n', keys = '<g;leader>f', desc = '+Fzflua' },
           { mode = 'n', keys = '<leader>g', desc = '+Git' },
           { mode = 'n', keys = '<leader>n', desc = '+Note' },
           { mode = 'n', keys = '<leader>r', desc = '+RosettaTranslate' },
